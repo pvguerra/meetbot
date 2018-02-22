@@ -1,10 +1,18 @@
 import json
 import requests
 import time
+import telebot
 import urllib
 
 TOKEN = "519608788:AAGg-pw9GFc_SMQvlGgxzMlEsGRsxxxyFZI"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
+
+bot = telebot.TeleBot(TOKEN)
+
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, "Ola, vamos comecar?")
 
 
 def get_url(url):
@@ -67,6 +75,8 @@ def main():
             echo_all(updates)
         time.sleep(0.5)
 
+
+bot.polling()
 
 if __name__ == '__main__':
     main()
